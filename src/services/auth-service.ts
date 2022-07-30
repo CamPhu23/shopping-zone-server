@@ -9,7 +9,7 @@ import sendRegistrationMail  from "./mail/registration-service";
 import resetPasswordMail from "./mail/reset-password-service";
 import _ = require("lodash");
 
-const ACCESS_TOKEN_EXPIRED_IN_TIME = 60 * 30; //30 Mins
+const ACCESS_TOKEN_EXPIRED_IN_TIME = 60 * 60 * 24 * 2; //2 Days
 const REFRESH_TOKEN_EXPIRED_IN_TIME = 60 * 60 * 24 * 3; //3 Days
 
 export class AuthService {
