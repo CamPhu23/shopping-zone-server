@@ -98,45 +98,27 @@ export class ProductRepository extends BaseRepository {
         });
     }
 
-    switch (sortBy) {
-      case ("price"):
-        if (sortDirection == "asc") {
-          rawData = rawData.sort((a, b) => a.price - b.price);
-        }
-        else {
-          rawData = rawData.sort((a, b) => b.price - a.price);
-        }
-        break;
-      default:
-        if (sortDirection == "asc") {
-          rawData = rawData.sort((a, b) => a.name.localeCompare(b.name));
-        }
-        else {
-          rawData = rawData.sort((a, b) => b.name.localeCompare(a.name));
-        }
-        break;
-    }
+    let data = rawData.filter((p: any): any => p.warehouses.length > 0);
 
     switch (sortBy) {
       case ("price"):
         if (sortDirection == "asc") {
-          rawData = rawData.sort((a, b) => a.price - b.price);
+          data = data.sort((a, b) => (a.price * (100 - a.discount)) - (b.price * (100 - b.discount)));
         }
         else {
-          rawData = rawData.sort((a, b) => b.price - a.price);
+          data = data.sort((a, b) => (b.price * (100 - b.discount)) - (a.price * (100 - a.discount)));
         }
         break;
       default:
         if (sortDirection == "asc") {
-          rawData = rawData.sort((a, b) => a.name.localeCompare(b.name));
+          data = data.sort((a, b) => a.name.localeCompare(b.name));
         }
         else {
-          rawData = rawData.sort((a, b) => b.name.localeCompare(a.name));
+          data = data.sort((a, b) => b.name.localeCompare(a.name));
         }
         break;
     }
 
-    const data = rawData.filter((p: any): any => p.warehouses.length > 0);
     const productList = data.slice((p - 1) * s, p * s);
     
     return {
