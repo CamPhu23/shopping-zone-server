@@ -36,7 +36,10 @@ export class AccountService {
         result: updateInforUser
       }
     } catch (error: any) {
-      if (error.codeName == "DupicateKey") {
+      const { code } = error;
+
+      //code = 11000 it's mean mongoose throw duplicated error
+      if (code == 11000) {
         return this.response = {
           status: ResultCode.BAD_INPUT_DATA,
           message: "Email duplicate"
