@@ -5,6 +5,7 @@ import { authService } from '../services';
 import jwt from "jsonwebtoken";
 import { ResultCode } from "../utils";
 import _ from 'lodash';
+import { error } from "console";
 
 class AuthenticationController extends BaseController {
   private path = "/auth";
@@ -52,6 +53,8 @@ class AuthenticationController extends BaseController {
       
       res = await authService.googleLogin(email, fullname);
     } catch (error) {
+      console.log(error);
+      
       res = {
         status: ResultCode.FAILED,
       }
